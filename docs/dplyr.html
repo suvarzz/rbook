@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 3 Dplyr | A Minimal Book Example</title>
+  <meta name="description" content="This is short references for R functions." />
+  <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 3 Dplyr | A Minimal Book Example" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is short references for R functions." />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 3 Dplyr | A Minimal Book Example" />
+  
+  <meta name="twitter:description" content="This is short references for R functions." />
+  
+
+<meta name="author" content="Mark Goldberg" />
+
+
+<meta name="date" content="2020-05-07" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="intro.html"/>
+<link rel="next" href="methods.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Prerequisites</a></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a></li>
+<li class="chapter" data-level="3" data-path="dplyr.html"><a href="dplyr.html"><i class="fa fa-check"></i><b>3</b> Dplyr</a><ul>
+<li class="chapter" data-level="3.1" data-path="dplyr.html"><a href="dplyr.html#select-columns"><i class="fa fa-check"></i><b>3.1</b> Select columns</a></li>
+<li class="chapter" data-level="3.2" data-path="dplyr.html"><a href="dplyr.html#filter-rows-by-condition"><i class="fa fa-check"></i><b>3.2</b> Filter rows by condition</a></li>
+<li class="chapter" data-level="3.3" data-path="dplyr.html"><a href="dplyr.html#slice-rows-by-index"><i class="fa fa-check"></i><b>3.3</b> Slice rows by index</a></li>
+<li class="chapter" data-level="3.4" data-path="dplyr.html"><a href="dplyr.html#adding-rows-and-columns"><i class="fa fa-check"></i><b>3.4</b> Adding rows and columns</a></li>
+<li class="chapter" data-level="3.5" data-path="dplyr.html"><a href="dplyr.html#remove-duplicates"><i class="fa fa-check"></i><b>3.5</b> Remove duplicates</a></li>
+<li class="chapter" data-level="3.6" data-path="dplyr.html"><a href="dplyr.html#grouping-and-aggregation"><i class="fa fa-check"></i><b>3.6</b> Grouping and aggregation</a></li>
+<li class="chapter" data-level="3.7" data-path="dplyr.html"><a href="dplyr.html#operations-on-several-data-frames"><i class="fa fa-check"></i><b>3.7</b> Operations on several data frames</a></li>
+<li class="chapter" data-level="3.8" data-path="dplyr.html"><a href="dplyr.html#join-functions"><i class="fa fa-check"></i><b>3.8</b> Join functions</a></li>
+<li class="chapter" data-level="3.9" data-path="dplyr.html"><a href="dplyr.html#miscellaneous"><i class="fa fa-check"></i><b>3.9</b> Miscellaneous</a></li>
+<li class="chapter" data-level="3.10" data-path="dplyr.html"><a href="dplyr.html#adding-rows-and-columns-1"><i class="fa fa-check"></i><b>3.10</b> Adding rows and columns</a></li>
+<li class="chapter" data-level="3.11" data-path="dplyr.html"><a href="dplyr.html#remove-duplicates-1"><i class="fa fa-check"></i><b>3.11</b> Remove duplicates</a></li>
+<li class="chapter" data-level="3.12" data-path="dplyr.html"><a href="dplyr.html#select"><i class="fa fa-check"></i><b>3.12</b> Select</a></li>
+<li class="chapter" data-level="3.13" data-path="dplyr.html"><a href="dplyr.html#filter-rows"><i class="fa fa-check"></i><b>3.13</b> Filter rows</a></li>
+<li class="chapter" data-level="3.14" data-path="dplyr.html"><a href="dplyr.html#summarize"><i class="fa fa-check"></i><b>3.14</b> Summarize</a></li>
+<li class="chapter" data-level="3.15" data-path="dplyr.html"><a href="dplyr.html#sort"><i class="fa fa-check"></i><b>3.15</b> Sort</a></li>
+<li class="chapter" data-level="3.16" data-path="dplyr.html"><a href="dplyr.html#pipes"><i class="fa fa-check"></i><b>3.16</b> Pipes</a></li>
+<li class="chapter" data-level="3.17" data-path="dplyr.html"><a href="dplyr.html#combine-data"><i class="fa fa-check"></i><b>3.17</b> Combine data</a></li>
+<li class="chapter" data-level="3.18" data-path="dplyr.html"><a href="dplyr.html#by-is-a-common-variable-primary-key-to-join-by."><i class="fa fa-check"></i><b>3.18</b> ‘by’ is a common variable (primary key) to join by.</a></li>
+<li class="chapter" data-level="3.19" data-path="dplyr.html"><a href="dplyr.html#nested-if_else"><i class="fa fa-check"></i><b>3.19</b> Nested If_Else</a></li>
+<li class="chapter" data-level="3.20" data-path="dplyr.html"><a href="dplyr.html#if-family-of-functions"><i class="fa fa-check"></i><b>3.20</b> if() Family of Functions</a></li>
+<li class="chapter" data-level="3.21" data-path="dplyr.html"><a href="dplyr.html#todo"><i class="fa fa-check"></i><b>3.21</b> TODO</a></li>
+<li class="chapter" data-level="3.22" data-path="dplyr.html"><a href="dplyr.html#vectorize-functions-to-columns"><i class="fa fa-check"></i><b>3.22</b> Vectorize functions to columns</a></li>
+<li class="chapter" data-level="3.23" data-path="dplyr.html"><a href="dplyr.html#how-to"><i class="fa fa-check"></i><b>3.23</b> How to …</a><ul>
+<li class="chapter" data-level="3.23.1" data-path="dplyr.html"><a href="dplyr.html#convert-empty-spaces-to-na"><i class="fa fa-check"></i><b>3.23.1</b> Convert empty spaces to NA</a></li>
+<li class="chapter" data-level="3.23.2" data-path="dplyr.html"><a href="dplyr.html#randomly-select-n-rows"><i class="fa fa-check"></i><b>3.23.2</b> Randomly select n rows</a></li>
+</ul></li>
+<li class="chapter" data-level="3.24" data-path="dplyr.html"><a href="dplyr.html#sources"><i class="fa fa-check"></i><b>3.24</b> Sources</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="methods.html"><a href="methods.html"><i class="fa fa-check"></i><b>4</b> Methods</a></li>
+<li class="chapter" data-level="5" data-path="applications.html"><a href="applications.html"><i class="fa fa-check"></i><b>5</b> Applications</a><ul>
+<li class="chapter" data-level="5.1" data-path="applications.html"><a href="applications.html#example-one"><i class="fa fa-check"></i><b>5.1</b> Example one</a></li>
+<li class="chapter" data-level="5.2" data-path="applications.html"><a href="applications.html#example-two"><i class="fa fa-check"></i><b>5.2</b> Example two</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>6</b> Final Words</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">A Minimal Book Example</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="dplyr" class="section level1">
+<h1><span class="header-section-number">Chapter 3</span> Dplyr</h1>
+<div id="select-columns" class="section level2">
+<h2><span class="header-section-number">3.1</span> Select columns</h2>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="co"># Select columns</span></a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw">select</span>(A,B)                      <span class="co"># select columns by name</span></a>
+<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="kw">select</span>(<span class="kw">c</span>(A,B))                   <span class="co"># select multiple columns by name</span></a>
+<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="kw">select</span>(A,B<span class="op">:</span>D)                    <span class="co"># select multiple oclumns by names</span></a>
+<a class="sourceLine" id="cb3-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="kw">select</span>(<span class="op">-</span>B,<span class="op">-</span>B)                    <span class="co"># exclude columns by name</span></a>
+<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="kw">select</span>(<span class="op">-</span><span class="kw">c</span>(A,B))                  <span class="co"># exclude multiple columns by name</span></a>
+<a class="sourceLine" id="cb3-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb3-9" data-line-number="9"><span class="kw">select</span>(<span class="kw">starts_with</span>(<span class="st">&#39;a&#39;</span>))         <span class="co"># select by names of fields starting with ...</span></a>
+<a class="sourceLine" id="cb3-10" data-line-number="10"><span class="kw">select</span>(<span class="op">-</span><span class="kw">starts_with</span>(<span class="st">&#39;a&#39;</span>))        <span class="co"># exclude by names of fields starting with ...</span></a>
+<a class="sourceLine" id="cb3-11" data-line-number="11"><span class="kw">select</span>(<span class="kw">ends_with</span>(<span class="st">&#39;a&#39;</span>))           <span class="co"># ends with a prefix</span></a>
+<a class="sourceLine" id="cb3-12" data-line-number="12"><span class="kw">select</span>(<span class="kw">contains</span>(<span class="st">&#39;a&#39;</span>))            <span class="co"># select by names of fields contains a literal string</span></a>
+<a class="sourceLine" id="cb3-13" data-line-number="13"><span class="kw">select</span>(<span class="kw">matches</span>())                <span class="co"># matches a regular expression</span></a>
+<a class="sourceLine" id="cb3-14" data-line-number="14"><span class="kw">select</span>(<span class="kw">num_range</span>())              <span class="co"># numerical range like x01, x02, x03.</span></a>
+<a class="sourceLine" id="cb3-15" data-line-number="15"><span class="kw">select</span>(<span class="kw">one_of</span>())                 <span class="co"># variables in character vector</span></a>
+<a class="sourceLine" id="cb3-16" data-line-number="16"><span class="kw">select</span>(<span class="kw">everything</span>())             <span class="co"># all variables</span></a>
+<a class="sourceLine" id="cb3-17" data-line-number="17"></a>
+<a class="sourceLine" id="cb3-18" data-line-number="18"><span class="kw">select</span>(A, B<span class="op">:</span>D, <span class="kw">contains</span>(<span class="st">&#39;foo&#39;</span>), <span class="kw">contains</span>(<span class="st">&#39;bar&#39;</span>))</a>
+<a class="sourceLine" id="cb3-19" data-line-number="19"></a>
+<a class="sourceLine" id="cb3-20" data-line-number="20"><span class="co"># Reorder columns</span></a>
+<a class="sourceLine" id="cb3-21" data-line-number="21"><span class="kw">select</span>(A, <span class="kw">everything</span>())          <span class="co"># reorder variables, that A will be in the 1st column</span></a>
+<a class="sourceLine" id="cb3-22" data-line-number="22"><span class="kw">select</span>(C, B, A, <span class="kw">everything</span>())    <span class="co"># reordrer columns</span></a>
+<a class="sourceLine" id="cb3-23" data-line-number="23"><span class="kw">select</span>(C, B, A)                  <span class="co"># the same as previous</span></a>
+<a class="sourceLine" id="cb3-24" data-line-number="24"></a>
+<a class="sourceLine" id="cb3-25" data-line-number="25"><span class="co"># Rename columns</span></a>
+<a class="sourceLine" id="cb3-26" data-line-number="26"><span class="kw">rename</span>(<span class="dt">A=</span>X)                      <span class="co"># rename column A as X</span></a></code></pre></div>
+</div>
+<div id="filter-rows-by-condition" class="section level2">
+<h2><span class="header-section-number">3.2</span> Filter rows by condition</h2>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="co"># Filter rows</span></a>
+<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="kw">filter</span>(A<span class="op">==</span><span class="dv">1</span>)                     <span class="co"># rows where column A is equal to 1</span></a>
+<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="kw">filter</span>(A<span class="op">&gt;</span><span class="dv">1</span> <span class="op">&amp;</span><span class="st"> </span>B<span class="op">&lt;</span><span class="dv">2</span>)                <span class="co"># multiple condition</span></a>
+<a class="sourceLine" id="cb4-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="kw">filter</span>(A <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>))          <span class="co"># select rows if A is from given vector</span></a>
+<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="kw">filter</span>(A <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>) <span class="op">&amp;</span><span class="st"> </span>C <span class="op">&gt;</span><span class="st"> </span><span class="dv">3</span>)    <span class="co"># multiple filtering AND</span></a>
+<a class="sourceLine" id="cb4-7" data-line-number="7"><span class="kw">filter</span>(A <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>) <span class="op">|</span><span class="st"> </span>C <span class="op">==</span><span class="st"> </span><span class="dv">3</span>)  <span class="co"># multiple filtering OR</span></a>
+<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="kw">filter</span>(<span class="op">!</span>A <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">3</span>))          <span class="co"># filtering NOT</span></a>
+<a class="sourceLine" id="cb4-9" data-line-number="9"><span class="kw">filter</span>(<span class="kw">grepl</span>(<span class="st">&quot;a&quot;</span>, A))            <span class="co"># filter rorws by grep values in column A</span></a>
+<a class="sourceLine" id="cb4-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb4-11" data-line-number="11"><span class="kw">filter</span>(<span class="kw">is.na</span>(A))                 <span class="co"># filter rows if column A contains &#39;NA&#39;</span></a>
+<a class="sourceLine" id="cb4-12" data-line-number="12"><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(A))                <span class="co"># filter &#39;NA&#39;</span></a></code></pre></div>
+</div>
+<div id="slice-rows-by-index" class="section level2">
+<h2><span class="header-section-number">3.3</span> Slice rows by index</h2>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">slice</span>(1L)            <span class="co"># first row</span></a>
+<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="kw">slice</span>(<span class="dv">2</span><span class="op">:</span><span class="dv">5</span>)           <span class="co"># 2-5 rows</span></a>
+<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="kw">slice</span>(<span class="kw">n</span>())           <span class="co"># last row</span></a>
+<a class="sourceLine" id="cb5-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb5-5" data-line-number="5"><span class="co"># Indices must be either all positive or all negative</span></a>
+<a class="sourceLine" id="cb5-6" data-line-number="6"><span class="kw">slice</span>(<span class="dv">5</span><span class="op">:</span><span class="kw">n</span>())         <span class="co"># from 5th to the last rows</span></a>
+<a class="sourceLine" id="cb5-7" data-line-number="7"><span class="kw">slice</span>(<span class="op">-</span><span class="dv">5</span><span class="op">:-</span><span class="kw">n</span>())       <span class="co"># 1-4 rows</span></a>
+<a class="sourceLine" id="cb5-8" data-line-number="8"><span class="kw">slice</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>)           <span class="co"># 1-4 rows</span></a></code></pre></div>
+</div>
+<div id="adding-rows-and-columns" class="section level2">
+<h2><span class="header-section-number">3.4</span> Adding rows and columns</h2>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">mutate</span>(<span class="dt">mycol =</span> <span class="ot">NA</span>)               <span class="co"># add column &#39;mycol&#39; filled with &#39;NA&#39;</span></a>
+<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="kw">mutate</span>(<span class="dt">mycol =</span> A<span class="op">*</span>B)              <span class="co"># add column &#39;mycol&#39; as A*B</span></a>
+<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="kw">mutate</span>(mycol1, mycol2)           <span class="co"># add multiple columns</span></a>
+<a class="sourceLine" id="cb6-4" data-line-number="4"><span class="kw">cbind</span>(<span class="dt">mycol =</span> <span class="ot">NA</span>)                <span class="co"># add column &#39;mycol&#39;</span></a>
+<a class="sourceLine" id="cb6-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb6-6" data-line-number="6"><span class="kw">rbind</span>(<span class="dt">myrow =</span> <span class="ot">NA</span>)                <span class="co"># add row filled with &#39;NA&#39;</span></a></code></pre></div>
+</div>
+<div id="remove-duplicates" class="section level2">
+<h2><span class="header-section-number">3.5</span> Remove duplicates</h2>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw">distinct</span>()                       <span class="co"># remove duplicated rows</span></a>
+<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="kw">distinct</span>(A, <span class="dt">.keep_all=</span><span class="ot">TRUE</span>)      <span class="co"># remove rows when field &#39;A&#39; is duplicated</span></a>
+<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="kw">distinct</span>(A, B, <span class="dt">.keep_all=</span><span class="ot">TRUE</span>)   <span class="co"># remove rows when several columns at the same row are duplicated</span></a></code></pre></div>
+</div>
+<div id="grouping-and-aggregation" class="section level2">
+<h2><span class="header-section-number">3.6</span> Grouping and aggregation</h2>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">df <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(A) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">avg_b =</span> <span class="kw">mean</span>(B, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</a></code></pre></div>
+</div>
+<div id="operations-on-several-data-frames" class="section level2">
+<h2><span class="header-section-number">3.7</span> Operations on several data frames</h2>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="co"># Compair data</span></a>
+<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="kw">all_equal</span>(x,y)                   <span class="co"># compair two data frames</span></a>
+<a class="sourceLine" id="cb9-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb9-4" data-line-number="4"><span class="co"># Combine data</span></a>
+<a class="sourceLine" id="cb9-5" data-line-number="5"><span class="kw">intersect</span>(x,y)                   <span class="co"># rows that appear in both x and y.</span></a>
+<a class="sourceLine" id="cb9-6" data-line-number="6"><span class="kw">union</span>(x,y)                       <span class="co"># rows that appear in either or both x and y.</span></a>
+<a class="sourceLine" id="cb9-7" data-line-number="7"><span class="kw">setdiff</span>(x,y)                     <span class="co"># rows that appear in x but not y.</span></a>
+<a class="sourceLine" id="cb9-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb9-9" data-line-number="9"><span class="co"># Sort</span></a>
+<a class="sourceLine" id="cb9-10" data-line-number="10"><span class="kw">arrange</span>(A)                       <span class="co"># sort rows by A column</span></a>
+<a class="sourceLine" id="cb9-11" data-line-number="11"><span class="kw">arrange</span>(<span class="kw">desc</span>(A))                 <span class="co"># sort by descendence of values in column A</span></a>
+<a class="sourceLine" id="cb9-12" data-line-number="12"><span class="kw">arrange</span>(A, B)                    <span class="co"># sort by A &amp; B</span></a>
+<a class="sourceLine" id="cb9-13" data-line-number="13"></a>
+<a class="sourceLine" id="cb9-14" data-line-number="14"><span class="kw">group_by</span>(A)                      <span class="co"># group rows by A column</span></a>
+<a class="sourceLine" id="cb9-15" data-line-number="15"><span class="kw">group_by</span>(<span class="dt">A =</span> <span class="kw">as.factor</span>(A))       <span class="co"># group rows by A column</span></a>
+<a class="sourceLine" id="cb9-16" data-line-number="16"><span class="kw">group_by</span>(<span class="dt">A =</span> <span class="kw">cut</span>(A, <span class="dv">3</span>))          <span class="co"># group by 3 ranges from A</span></a></code></pre></div>
+</div>
+<div id="join-functions" class="section level2">
+<h2><span class="header-section-number">3.8</span> Join functions</h2>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw">inner_join</span>(x, y, <span class="dt">by =</span> )</a>
+<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="kw">left_join</span>(x, y, <span class="dt">by =</span> )</a>
+<a class="sourceLine" id="cb10-3" data-line-number="3"><span class="kw">right_join</span>(x, y, <span class="dt">by =</span> )</a>
+<a class="sourceLine" id="cb10-4" data-line-number="4"><span class="kw">full_join</span>(x, y, <span class="dt">by =</span> )</a>
+<a class="sourceLine" id="cb10-5" data-line-number="5"><span class="kw">semi_join</span>(x, y, <span class="dt">by =</span> )</a>
+<a class="sourceLine" id="cb10-6" data-line-number="6"><span class="kw">anti_join</span>(x, y, <span class="dt">by =</span> )</a></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="kw">library</span>(dplyr)</a>
+<a class="sourceLine" id="cb11-2" data-line-number="2">a &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x1=</span><span class="kw">c</span>(<span class="st">&#39;A&#39;</span>,<span class="st">&#39;B&#39;</span>,<span class="st">&#39;C&#39;</span>), <span class="dt">x2=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>))</a>
+<a class="sourceLine" id="cb11-3" data-line-number="3">b &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x1=</span><span class="kw">c</span>(<span class="st">&#39;A&#39;</span>,<span class="st">&#39;B&#39;</span>,<span class="st">&#39;D&#39;</span>), <span class="dt">x3=</span><span class="kw">c</span>(<span class="st">&#39;T&#39;</span>,<span class="st">&#39;F&#39;</span>,<span class="st">&#39;T&#39;</span>))</a>
+<a class="sourceLine" id="cb11-4" data-line-number="4">a</a></code></pre></div>
+<pre><code>##   x1 x2
+## 1  A  1
+## 2  B  2
+## 3  C  3</code></pre>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">b</a></code></pre></div>
+<pre><code>##   x1 x3
+## 1  A  T
+## 2  B  F
+## 3  D  T</code></pre>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="co"># Retain only rows in both sets.</span></a>
+<a class="sourceLine" id="cb15-2" data-line-number="2">dplyr<span class="op">::</span><span class="kw">inner_join</span>(a, b, <span class="dt">by=</span><span class="st">&#39;x1&#39;</span>)</a></code></pre></div>
+<pre><code>## Warning: Column `x1` joining factors with different levels, coercing to
+## character vector</code></pre>
+<pre><code>##   x1 x2 x3
+## 1  A  1  T
+## 2  B  2  F</code></pre>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1"><span class="co"># Join matching rows from b to a</span></a>
+<a class="sourceLine" id="cb18-2" data-line-number="2">dplyr<span class="op">::</span><span class="kw">left_join</span>(a, b, <span class="dt">by=</span><span class="st">&#39;x1&#39;</span>)</a></code></pre></div>
+<pre><code>## Warning: Column `x1` joining factors with different levels, coercing to
+## character vector</code></pre>
+<pre><code>##   x1 x2   x3
+## 1  A  1    T
+## 2  B  2    F
+## 3  C  3 &lt;NA&gt;</code></pre>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1"><span class="co"># Join matching rows from a to b.</span></a>
+<a class="sourceLine" id="cb21-2" data-line-number="2">dplyr<span class="op">::</span><span class="kw">right_join</span>(a, b, <span class="dt">by=</span><span class="st">&#39;x1&#39;</span>)</a></code></pre></div>
+<pre><code>## Warning: Column `x1` joining factors with different levels, coercing to
+## character vector</code></pre>
+<pre><code>##   x1 x2 x3
+## 1  A  1  T
+## 2  B  2  F
+## 3  D NA  T</code></pre>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1"><span class="co"># Retain all values, all rows</span></a>
+<a class="sourceLine" id="cb24-2" data-line-number="2">dplyr<span class="op">::</span><span class="kw">full_join</span>(a, b, <span class="dt">by =</span> <span class="st">&quot;x1&quot;</span>)</a></code></pre></div>
+<pre><code>## Warning: Column `x1` joining factors with different levels, coercing to
+## character vector</code></pre>
+<pre><code>##   x1 x2   x3
+## 1  A  1    T
+## 2  B  2    F
+## 3  C  3 &lt;NA&gt;
+## 4  D NA    T</code></pre>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1"><span class="co"># All rows in a that have a match in b.</span></a>
+<a class="sourceLine" id="cb27-2" data-line-number="2">dplyr<span class="op">::</span><span class="kw">semi_join</span>(a, b, <span class="dt">by =</span> <span class="st">&quot;x1&quot;</span>)</a></code></pre></div>
+<pre><code>## Warning: Column `x1` joining factors with different levels, coercing to
+## character vector</code></pre>
+<pre><code>##   x1 x2
+## 1  A  1
+## 2  B  2</code></pre>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" data-line-number="1"><span class="co"># All rows in a that do not have a match in b.</span></a>
+<a class="sourceLine" id="cb30-2" data-line-number="2">dplyr<span class="op">::</span><span class="kw">anti_join</span>(a, b, <span class="dt">by =</span> <span class="st">&quot;x1&quot;</span>)   </a></code></pre></div>
+<pre><code>## Warning: Column `x1` joining factors with different levels, coercing to
+## character vector</code></pre>
+<pre><code>##   x1 x2
+## 1  C  3</code></pre>
+</div>
+<div id="miscellaneous" class="section level2">
+<h2><span class="header-section-number">3.9</span> Miscellaneous</h2>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1">df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">na_if</span>(<span class="st">&quot;&quot;</span>)            <span class="co"># Convert empty spaces to &#39;NA&#39;</span></a>
+<a class="sourceLine" id="cb33-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb33-3" data-line-number="3"><span class="kw">sample_frac</span>(df, <span class="dt">size=</span><span class="fl">0.8</span>)   <span class="co"># Randomly select fraction of rows</span></a>
+<a class="sourceLine" id="cb33-4" data-line-number="4"><span class="kw">sample_n</span>(<span class="dv">10</span>)                <span class="co"># Randomly select number of rows</span></a></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" data-line-number="1"><span class="co"># toy data</span></a>
+<a class="sourceLine" id="cb34-2" data-line-number="2">df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="st">&quot;Age&quot;</span> =<span class="st"> </span><span class="kw">c</span>(<span class="dv">10</span>,<span class="dv">15</span>,<span class="dv">10</span>,<span class="dv">15</span>), <span class="st">&quot;Name&quot;</span> =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;A&quot;</span>,<span class="st">&quot;B&quot;</span>, <span class="st">&quot;C&quot;</span>, <span class="st">&quot;B&quot;</span>), <span class="st">&quot;Gender&quot;</span>=<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>))</a>
+<a class="sourceLine" id="cb34-3" data-line-number="3">df</a></code></pre></div>
+<pre><code>##   Age Name Gender
+## 1  10    A      1
+## 2  15    B      0
+## 3  10    C      1
+## 4  15    B      0</code></pre>
+</div>
+<div id="adding-rows-and-columns-1" class="section level2">
+<h2><span class="header-section-number">3.10</span> Adding rows and columns</h2>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" data-line-number="1">df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">N =</span> <span class="ot">NA</span>)    <span class="co"># add new last column &#39;N&#39; filled NA</span></a></code></pre></div>
+<pre><code>##   Age Name Gender  N
+## 1  10    A      1 NA
+## 2  15    B      0 NA
+## 3  10    C      1 NA
+## 4  15    B      0 NA</code></pre>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" data-line-number="1">df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">rbind</span>(<span class="dt">N =</span> <span class="ot">NA</span>)     <span class="co"># add new last row &#39;N&#39; filled &#39;NA&#39;</span></a></code></pre></div>
+<pre><code>##   Age Name Gender
+## 1  10    A      1
+## 2  15    B      0
+## 3  10    C      1
+## 4  15    B      0
+## 5  NA &lt;NA&gt;     NA</code></pre>
+</div>
+<div id="remove-duplicates-1" class="section level2">
+<h2><span class="header-section-number">3.11</span> Remove duplicates</h2>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" data-line-number="1">df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">distinct</span>()                                <span class="co"># remove duplicated rows</span></a></code></pre></div>
+<pre><code>##   Age Name Gender
+## 1  10    A      1
+## 2  15    B      0
+## 3  10    C      1</code></pre>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" data-line-number="1">df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">distinct</span>(Age, <span class="dt">.keep_all=</span><span class="ot">TRUE</span>)             <span class="co"># remove rows when field &#39;Age&#39; is duplicated</span></a></code></pre></div>
+<pre><code>##   Age Name Gender
+## 1  10    A      1
+## 2  15    B      0</code></pre>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" data-line-number="1">df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">distinct</span>(Age, Gender, <span class="dt">.keep_all=</span><span class="ot">TRUE</span>)     <span class="co"># remove rows when fields &#39;A&#39; &amp; &#39;B&#39; are duplicated</span></a></code></pre></div>
+<pre><code>##   Age Name Gender
+## 1  10    A      1
+## 2  15    B      0</code></pre>
+</div>
+<div id="select" class="section level2">
+<h2><span class="header-section-number">3.12</span> Select</h2>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb46-1" data-line-number="1">df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(Name, Gender)          <span class="co"># select fields</span></a></code></pre></div>
+<pre><code>##   Name Gender
+## 1    A      1
+## 2    B      0
+## 3    C      1
+## 4    B      0</code></pre>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb48-1" data-line-number="1">df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="op">-</span>Name, <span class="op">-</span>Gender)        <span class="co"># exclude fields</span></a></code></pre></div>
+<pre><code>##   Age
+## 1  10
+## 2  15
+## 3  10
+## 4  15</code></pre>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb50-1" data-line-number="1">df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="op">-</span><span class="kw">c</span>(Name, Gender))      <span class="co"># same as privious</span></a></code></pre></div>
+<pre><code>##   Age
+## 1  10
+## 2  15
+## 3  10
+## 4  15</code></pre>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb52-1" data-line-number="1">df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="kw">starts_with</span>(<span class="st">&quot;A&quot;</span>))      <span class="co"># select names of fields: A -&gt; Age</span></a></code></pre></div>
+<pre><code>##   Age
+## 1  10
+## 2  15
+## 3  10
+## 4  15</code></pre>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb54-1" data-line-number="1"><span class="kw">select</span>(df, <span class="op">-</span><span class="kw">starts_with</span>(<span class="st">&quot;A&quot;</span>))        <span class="co"># select all except A -&gt; Age</span></a></code></pre></div>
+<pre><code>##   Name Gender
+## 1    A      1
+## 2    B      0
+## 3    C      1
+## 4    B      0</code></pre>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb56-1" data-line-number="1"><span class="kw">select</span>(df, <span class="kw">contains</span>(<span class="st">&quot;G&quot;</span>))            <span class="co"># Contains a literal string</span></a></code></pre></div>
+<pre><code>##   Age Gender
+## 1  10      1
+## 2  15      0
+## 3  10      1
+## 4  15      0</code></pre>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb58-1" data-line-number="1"><span class="kw">select</span>(df, <span class="kw">ends_with</span>(<span class="st">&quot;r&quot;</span>))           <span class="co"># Ends with a prefix</span></a></code></pre></div>
+<pre><code>##   Gender
+## 1      1
+## 2      0
+## 3      1
+## 4      0</code></pre>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb60-1" data-line-number="1">          <span class="co"># matches()   Matches a regular expression</span></a>
+<a class="sourceLine" id="cb60-2" data-line-number="2">          <span class="co"># num_range() Numerical range like x01, x02, x03.</span></a>
+<a class="sourceLine" id="cb60-3" data-line-number="3">          <span class="co"># one_of()    Variables in character vector.</span></a>
+<a class="sourceLine" id="cb60-4" data-line-number="4">          <span class="co"># everything()    All variables.</span></a>
+<a class="sourceLine" id="cb60-5" data-line-number="5"><span class="kw">select</span>(df, Age, <span class="kw">everything</span>())        <span class="co"># reorder variables, that Age will be in the 1st column</span></a></code></pre></div>
+<pre><code>##   Age Name Gender
+## 1  10    A      1
+## 2  15    B      0
+## 3  10    C      1
+## 4  15    B      0</code></pre>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb62-1" data-line-number="1"><span class="kw">select</span>(df, Gender, Age, Name, <span class="kw">everything</span>()) <span class="co"># reordrer columns</span></a></code></pre></div>
+<pre><code>##   Gender Age Name
+## 1      1  10    A
+## 2      0  15    B
+## 3      1  10    C
+## 4      0  15    B</code></pre>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb64-1" data-line-number="1"><span class="kw">select</span>(df, Gender, Age, Name)               <span class="co"># the same as previous</span></a></code></pre></div>
+<pre><code>##   Gender Age Name
+## 1      1  10    A
+## 2      0  15    B
+## 3      1  10    C
+## 4      0  15    B</code></pre>
+</div>
+<div id="filter-rows" class="section level2">
+<h2><span class="header-section-number">3.13</span> Filter rows</h2>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb66-1" data-line-number="1"><span class="kw">filter</span>(df, Gender<span class="op">==</span><span class="dv">1</span>)</a></code></pre></div>
+<pre><code>##   Age Name Gender
+## 1  10    A      1
+## 2  10    C      1</code></pre>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb68-1" data-line-number="1"><span class="kw">filter</span>(df, Age<span class="op">&gt;</span><span class="dv">10</span>)</a></code></pre></div>
+<pre><code>##   Age Name Gender
+## 1  15    B      0
+## 2  15    B      0</code></pre>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb70-1" data-line-number="1"><span class="kw">filter</span>(df, Name <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;A&#39;</span>,<span class="st">&#39;B&#39;</span>))</a></code></pre></div>
+<pre><code>##   Age Name Gender
+## 1  10    A      1
+## 2  15    B      0
+## 3  15    B      0</code></pre>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb72-1" data-line-number="1"><span class="kw">filter</span>(df, Name <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;A&#39;</span>,<span class="st">&#39;B&#39;</span>) <span class="op">&amp;</span><span class="st"> </span>Age <span class="op">&gt;</span><span class="st"> </span><span class="dv">10</span>)     <span class="co"># multiple filtering AND</span></a></code></pre></div>
+<pre><code>##   Age Name Gender
+## 1  15    B      0
+## 2  15    B      0</code></pre>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb74-1" data-line-number="1"><span class="kw">filter</span>(df, Name <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;A&#39;</span>, <span class="st">&#39;B&#39;</span>) <span class="op">|</span><span class="st"> </span>Gender <span class="op">==</span><span class="st"> </span><span class="dv">1</span>) <span class="co"># multiple filtering OR</span></a></code></pre></div>
+<pre><code>##   Age Name Gender
+## 1  10    A      1
+## 2  15    B      0
+## 3  10    C      1
+## 4  15    B      0</code></pre>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb76-1" data-line-number="1"><span class="kw">filter</span>(df, <span class="op">!</span>Name <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;A&#39;</span>, <span class="st">&#39;B&#39;</span>))              <span class="co"># filtering NOT</span></a></code></pre></div>
+<pre><code>##   Age Name Gender
+## 1  10    C      1</code></pre>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb78-1" data-line-number="1"><span class="kw">filter</span>(df, <span class="kw">grepl</span>(<span class="st">&quot;A&quot;</span>, Name))                    <span class="co"># grepl function</span></a></code></pre></div>
+<pre><code>##   Age Name Gender
+## 1  10    A      1</code></pre>
+</div>
+<div id="summarize" class="section level2">
+<h2><span class="header-section-number">3.14</span> Summarize</h2>
+<p>summarize(df, avg = mean(Age), m = median(Age))</p>
+<p>summarise_at(df, vars(Gender, Age), funs(n(), mean, median)) # multiple functions
+summarise_if(df, is.numeric, funs(n(),mean,median)) # for all numeric columns
+summarise_at(df, vars(Gender,Age), function(x) var(x - mean(x))) # custom function</p>
+<p>summarise
+summarize_all # Allply funs to every column
+summarize_at # Apply funs to specific columns
+summarize_if # Apply funs to all cols of one type</p>
+</div>
+<div id="sort" class="section level2">
+<h2><span class="header-section-number">3.15</span> Sort</h2>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb80-1" data-line-number="1"><span class="kw">arrange</span>(df, Age)</a></code></pre></div>
+<pre><code>##   Age Name Gender
+## 1  10    A      1
+## 2  10    C      1
+## 3  15    B      0
+## 4  15    B      0</code></pre>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb82-1" data-line-number="1"><span class="kw">arrange</span>(df, <span class="kw">desc</span>(Age))</a></code></pre></div>
+<pre><code>##   Age Name Gender
+## 1  15    B      0
+## 2  15    B      0
+## 3  10    A      1
+## 4  10    C      1</code></pre>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb84-1" data-line-number="1"><span class="kw">arrange</span>(df, Age, Name)</a></code></pre></div>
+<pre><code>##   Age Name Gender
+## 1  10    A      1
+## 2  10    C      1
+## 3  15    B      0
+## 4  15    B      0</code></pre>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb86-1" data-line-number="1"><span class="kw">group_by</span>(df, Age, Name) <span class="co"># ???</span></a></code></pre></div>
+<pre><code>## # A tibble: 4 x 3
+## # Groups:   Age, Name [3]
+##     Age Name  Gender
+##   &lt;dbl&gt; &lt;fct&gt;  &lt;dbl&gt;
+## 1    10 A          1
+## 2    15 B          0
+## 3    10 C          1
+## 4    15 B          0</code></pre>
+</div>
+<div id="pipes" class="section level2">
+<h2><span class="header-section-number">3.16</span> Pipes</h2>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb88-1" data-line-number="1">df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(Age, Name) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">arrange</span>(Age) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(Name <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;C&#39;</span>,<span class="st">&#39;B&#39;</span>)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">distinct</span>() <span class="co"># select columns and sort by and select rows and remove duplicated rows</span></a></code></pre></div>
+<pre><code>##   Age Name
+## 1  10    C
+## 2  15    B</code></pre>
+</div>
+<div id="combine-data" class="section level2">
+<h2><span class="header-section-number">3.17</span> Combine data</h2>
+<p>intersect(x, y) # Rows that appear in both x and y.
+union(x, y) # Rows that appear in either or both x and y.
+setdiff(x, y) # Rows that appear in x but not y.</p>
+</div>
+<div id="by-is-a-common-variable-primary-key-to-join-by." class="section level2">
+<h2><span class="header-section-number">3.18</span> ‘by’ is a common variable (primary key) to join by.</h2>
+<p>inner_join(x, y, by = )
+left_join(x, y, by = )
+right_join(x, y, by = )
+full_join(x, y, by = )
+semi_join(x, y, by = )
+anti_join(x, y, by = )</p>
+<p>if_else(condition, true, false, missing = NULL)
+mydf =data.frame(x = c(1:5,NA))</p>
+</div>
+<div id="nested-if_else" class="section level2">
+<h2><span class="header-section-number">3.19</span> Nested If_Else</h2>
+<p>mydf %&gt;% mutate(newvar= if_else(is.na(x),“I am missing”,
+if_else(x==1,“I am one”,
+if_else(x==2,“I am two”,
+if_else(x==3,“I am three”,“Others”)))))
+#TODO
+bind_rows()
+bind_cols()
+ntile()</p>
+</div>
+<div id="if-family-of-functions" class="section level2">
+<h2><span class="header-section-number">3.20</span> if() Family of Functions</h2>
+</div>
+<div id="todo" class="section level2">
+<h2><span class="header-section-number">3.21</span> TODO</h2>
+<p>select_if
+mutate_if
+pull()</p>
+</div>
+<div id="vectorize-functions-to-columns" class="section level2">
+<h2><span class="header-section-number">3.22</span> Vectorize functions to columns</h2>
+<p>mutate
+transmute
+mutate_all
+mutate_at
+add_column
+rename</p>
+</div>
+<div id="how-to" class="section level2">
+<h2><span class="header-section-number">3.23</span> How to …</h2>
+<div id="convert-empty-spaces-to-na" class="section level3">
+<h3><span class="header-section-number">3.23.1</span> Convert empty spaces to NA</h3>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb90-1" data-line-number="1">df &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;&quot;</span>, <span class="st">&quot;d&quot;</span>)</a>
+<a class="sourceLine" id="cb90-2" data-line-number="2">df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">na_if</span>(<span class="st">&quot;&quot;</span>)              <span class="co"># &quot;a&quot; &quot;b&quot; NA  &quot;d&quot;</span></a></code></pre></div>
+<pre><code>## [1] &quot;a&quot; &quot;b&quot; NA  &quot;d&quot;</code></pre>
+</div>
+<div id="randomly-select-n-rows" class="section level3">
+<h3><span class="header-section-number">3.23.2</span> Randomly select n rows</h3>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb92-1" data-line-number="1">df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">A=</span><span class="kw">seq</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>), <span class="dt">B=</span><span class="kw">seq</span>(.<span class="dv">1</span>,<span class="dv">1</span>,.<span class="dv">1</span>))</a>
+<a class="sourceLine" id="cb92-2" data-line-number="2">df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">sample_frac</span>(<span class="dt">size=</span><span class="fl">0.3</span>)   <span class="co"># Randomly select fraction of rows</span></a></code></pre></div>
+<pre><code>##    A   B
+## 1 10 1.0
+## 2  8 0.8
+## 3  4 0.4</code></pre>
+<p>sample_n(df, size, …) # Randomly select size rows
+slice(df # select rows by position</p>
+</div>
+</div>
+<div id="sources" class="section level2">
+<h2><span class="header-section-number">3.24</span> Sources</h2>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="intro.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="methods.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/02-dplyr.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["bookdown-demo.pdf", "bookdown-demo.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
