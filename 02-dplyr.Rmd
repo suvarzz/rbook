@@ -1,3 +1,10 @@
+---
+output:
+  bookdown::gitbook:
+    highlight: tango
+    toc: true
+---
+
 # Dplyr
 
 ## Select columns

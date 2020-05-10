@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>A Minimal Book Example</title>
+  <title>Chapter 5 Get fastq from SRA database | A Minimal Book Example</title>
   <meta name="description" content="This is short references for R functions." />
   <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="A Minimal Book Example" />
+  <meta property="og:title" content="Chapter 5 Get fastq from SRA database | A Minimal Book Example" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="rstudio/bookdown-demo" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="A Minimal Book Example" />
+  <meta name="twitter:title" content="Chapter 5 Get fastq from SRA database | A Minimal Book Example" />
   
   <meta name="twitter:description" content="This is short references for R functions." />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="statistics.html"/>
+<link rel="prev" href="analyis-of-new-generation-sequencing-data-in-r.html"/>
+<link rel="next" href="references.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -164,12 +164,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="4" data-path="analyis-of-new-generation-sequencing-data-in-r.html"><a href="analyis-of-new-generation-sequencing-data-in-r.html"><i class="fa fa-check"></i><b>4</b> Analyis of new generation sequencing data in R</a><ul>
 <li class="chapter" data-level="4.1" data-path="analyis-of-new-generation-sequencing-data-in-r.html"><a href="analyis-of-new-generation-sequencing-data-in-r.html#get-fastq-from-sra"><i class="fa fa-check"></i><b>4.1</b> Get fastq from SRA</a></li>
-<li class="chapter" data-level="4.2" data-path="analyis-of-new-generation-sequencing-data-in-r.html"><a href="analyis-of-new-generation-sequencing-data-in-r.html#create-database"><i class="fa fa-check"></i><b>4.2</b> Create database</a></li>
-<li class="chapter" data-level="4.3" data-path="analyis-of-new-generation-sequencing-data-in-r.html"><a href="analyis-of-new-generation-sequencing-data-in-r.html#get-info-for-sra-from-created-database"><i class="fa fa-check"></i><b>4.3</b> get info for SRA from created database</a></li>
-<li class="chapter" data-level="4.4" data-path="analyis-of-new-generation-sequencing-data-in-r.html"><a href="analyis-of-new-generation-sequencing-data-in-r.html#get-fastq-from-sra-database"><i class="fa fa-check"></i><b>4.4</b> Get fastq from SRA database</a></li>
-<li class="chapter" data-level="4.5" data-path="analyis-of-new-generation-sequencing-data-in-r.html"><a href="analyis-of-new-generation-sequencing-data-in-r.html#create-database-1"><i class="fa fa-check"></i><b>4.5</b> Create database</a></li>
-<li class="chapter" data-level="4.6" data-path="analyis-of-new-generation-sequencing-data-in-r.html"><a href="analyis-of-new-generation-sequencing-data-in-r.html#get-info-for-sra-from-created-database-1"><i class="fa fa-check"></i><b>4.6</b> get info for SRA from created database</a></li>
-<li class="chapter" data-level="4.7" data-path="analyis-of-new-generation-sequencing-data-in-r.html"><a href="analyis-of-new-generation-sequencing-data-in-r.html#alignment-using-rsubread"><i class="fa fa-check"></i><b>4.7</b> Alignment using Rsubread</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="get-fastq-from-sra-database.html"><a href="get-fastq-from-sra-database.html"><i class="fa fa-check"></i><b>5</b> Get fastq from SRA database</a><ul>
+<li class="chapter" data-level="5.1" data-path="get-fastq-from-sra-database.html"><a href="get-fastq-from-sra-database.html#get-fastq-from-sra-database-1"><i class="fa fa-check"></i><b>5.1</b> Get fastq from SRA database</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
@@ -192,29 +189,77 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">A Minimal Book Example</h1>
-<p class="author"><em>Mark Goldberg</em></p>
-<p class="date"><em>2020-05-09</em></p>
-</div>
-<div id="prerequisites" class="section level1">
-<h1><span class="header-section-number">Chapter 1</span> Prerequisites</h1>
-<p>This is a <em>sample</em> book written in <strong>Markdown</strong>. You can use anything that Pandoc’s Markdown supports, e.g., a math equation <span class="math inline">\(a^2 + b^2 = c^2\)</span>.</p>
-<p>The <strong>bookdown</strong> package can be installed from CRAN or Github:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">install.packages</span>(<span class="st">&quot;bookdown&quot;</span>)</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="co"># or the development version</span></a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="co"># devtools::install_github(&quot;rstudio/bookdown&quot;)</span></a></code></pre></div>
-<p>Remember each Rmd file contains one and only one chapter, and a chapter is defined by the first-level heading <code>#</code>.</p>
-<p>To compile this example to PDF, you need XeLaTeX. You are recommended to install TinyTeX (which includes XeLaTeX): <a href="https://yihui.name/tinytex/" class="uri">https://yihui.name/tinytex/</a>.</p>
+<div id="get-fastq-from-sra-database" class="section level1">
+<h1><span class="header-section-number">Chapter 5</span> Get fastq from SRA database</h1>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(SRAdb) <span class="co"># SRA database</span></a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">dir.create</span>(<span class="st">&quot;~/SRA&quot;</span>)</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw">setwd</span>(<span class="st">&quot;~/SRA&quot;</span>)</a>
+<a class="sourceLine" id="cb1-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="co">## Create database</span></a>
+<a class="sourceLine" id="cb1-6" data-line-number="6">sqlfile &lt;-<span class="st">&#39;SRAmetadb.sqlite&#39;</span></a>
+<a class="sourceLine" id="cb1-7" data-line-number="7"><span class="co"># load database [~3 Gb, 60 Gb on disc!!!]</span></a>
+<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="cf">if</span>(<span class="op">!</span><span class="kw">file.exists</span>(<span class="st">&#39;SRAmetadb.sqlite&#39;</span>)) sqlfile &lt;&lt;-<span class="st"> </span><span class="kw">getSRAdbFile</span>()</a>
+<a class="sourceLine" id="cb1-9" data-line-number="9"><span class="co"># connect database</span></a>
+<a class="sourceLine" id="cb1-10" data-line-number="10">sra_con &lt;-<span class="st"> </span><span class="kw">dbConnect</span>(<span class="kw">SQLite</span>(), sqlfile)</a>
+<a class="sourceLine" id="cb1-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb1-12" data-line-number="12"><span class="co">## get info for SRA from created database</span></a>
+<a class="sourceLine" id="cb1-13" data-line-number="13">sraInf &lt;-<span class="st"> </span><span class="kw">getSRAinfo</span>(<span class="st">&quot;SRP045534&quot;</span>, sra_con, <span class="dt">sraType=</span><span class="st">&quot;sra&quot;</span>)</a>
+<a class="sourceLine" id="cb1-14" data-line-number="14">sraInf</a>
+<a class="sourceLine" id="cb1-15" data-line-number="15"></a>
+<a class="sourceLine" id="cb1-16" data-line-number="16"><span class="co"># download SRA</span></a>
+<a class="sourceLine" id="cb1-17" data-line-number="17"><span class="co"># get SRA using SRA info [~ 5 Gb]</span></a>
+<a class="sourceLine" id="cb1-18" data-line-number="18"><span class="kw">sapply</span>(sraInf<span class="op">$</span>run, <span class="cf">function</span>(x) <span class="kw">try</span>(<span class="kw">getSRAfile</span>(x, sra_con, <span class="dt">fileType=</span><span class="st">&quot;sra&quot;</span>), <span class="dt">silent=</span><span class="ot">TRUE</span>))</a></code></pre></div>
+<div id="get-fastq-from-sra-database-1" class="section level2">
+<h2><span class="header-section-number">5.1</span> Get fastq from SRA database</h2>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">library</span>(SRAdb) <span class="co"># SRA database</span></a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw">dir.create</span>(<span class="st">&quot;~/SRA&quot;</span>)</a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="kw">setwd</span>(<span class="st">&quot;~/SRA&quot;</span>)</a>
+<a class="sourceLine" id="cb2-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="co">## Create database</span></a>
+<a class="sourceLine" id="cb2-6" data-line-number="6">sqlfile &lt;-<span class="st">&#39;SRAmetadb.sqlite&#39;</span></a>
+<a class="sourceLine" id="cb2-7" data-line-number="7"><span class="co"># load database [~3 Gb, 60 Gb on disc!!!]</span></a>
+<a class="sourceLine" id="cb2-8" data-line-number="8"><span class="cf">if</span>(<span class="op">!</span><span class="kw">file.exists</span>(<span class="st">&#39;SRAmetadb.sqlite&#39;</span>)) sqlfile &lt;&lt;-<span class="st"> </span><span class="kw">getSRAdbFile</span>()</a>
+<a class="sourceLine" id="cb2-9" data-line-number="9"><span class="co"># connect database</span></a>
+<a class="sourceLine" id="cb2-10" data-line-number="10">sra_con &lt;-<span class="st"> </span><span class="kw">dbConnect</span>(<span class="kw">SQLite</span>(), sqlfile)</a>
+<a class="sourceLine" id="cb2-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb2-12" data-line-number="12"><span class="co">## get info for SRA from created database</span></a>
+<a class="sourceLine" id="cb2-13" data-line-number="13">sraInf &lt;-<span class="st"> </span><span class="kw">getSRAinfo</span>(<span class="st">&quot;SRP045534&quot;</span>, sra_con, <span class="dt">sraType=</span><span class="st">&quot;sra&quot;</span>)</a>
+<a class="sourceLine" id="cb2-14" data-line-number="14">sraInf</a>
+<a class="sourceLine" id="cb2-15" data-line-number="15"></a>
+<a class="sourceLine" id="cb2-16" data-line-number="16"><span class="co"># download SRA</span></a>
+<a class="sourceLine" id="cb2-17" data-line-number="17"><span class="co"># get SRA using SRA info [~ 5 Gb]</span></a>
+<a class="sourceLine" id="cb2-18" data-line-number="18"><span class="kw">sapply</span>(sraInf<span class="op">$</span>run, <span class="cf">function</span>(x) <span class="kw">try</span>(<span class="kw">getSRAfile</span>(x, sra_con, <span class="dt">fileType=</span><span class="st">&quot;sra&quot;</span>), <span class="dt">silent=</span><span class="ot">TRUE</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb3-1" data-line-number="1"></a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="co">## Alignment using Rsubread</span></a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">library</span>(Rsubread) <span class="co"># sequence alignment</span></a>
+<a class="sourceLine" id="cb4-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb4-3" data-line-number="3">fastq.files &lt;-<span class="st"> </span><span class="kw">list.files</span>(<span class="dt">pattern =</span> <span class="st">&quot;.fastq.gz$&quot;</span>, <span class="dt">full.names =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb4-4" data-line-number="4">fastq.files</a>
+<a class="sourceLine" id="cb4-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="co"># build index</span></a>
+<a class="sourceLine" id="cb4-7" data-line-number="7"><span class="kw">buildindex</span>(<span class="dt">basename=</span><span class="st">&quot;mm10&quot;</span>, <span class="dt">reference=</span><span class="st">&quot;mm10.fa&quot;</span>)</a>
+<a class="sourceLine" id="cb4-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb4-9" data-line-number="9"><span class="co"># alignment</span></a>
+<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="kw">align</span>(fastq.files, <span class="dt">index=</span><span class="st">&quot;chr1_mm10&quot;</span>)</a>
+<a class="sourceLine" id="cb4-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb4-12" data-line-number="12"><span class="co"># parameters</span></a>
+<a class="sourceLine" id="cb4-13" data-line-number="13"><span class="kw">args</span>(align)</a>
+<a class="sourceLine" id="cb4-14" data-line-number="14"></a>
+<a class="sourceLine" id="cb4-15" data-line-number="15"><span class="co"># check result</span></a>
+<a class="sourceLine" id="cb4-16" data-line-number="16">bam.files &lt;-<span class="st"> </span><span class="kw">list.files</span>(<span class="dt">pattern =</span> <span class="st">&quot;.BAM$&quot;</span>, <span class="dt">full.names =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb4-17" data-line-number="17">bam.files</a>
+<a class="sourceLine" id="cb4-18" data-line-number="18"><span class="co"># properties of BAM files</span></a>
+<a class="sourceLine" id="cb4-19" data-line-number="19"><span class="kw">propmapped</span>(<span class="dt">files=</span>bam.files)</a></code></pre></div>
 
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
-<a href="statistics.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="analyis-of-new-generation-sequencing-data-in-r.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -245,7 +290,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/rstudio/bookdown-demo/edit/master/index.Rmd",
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/03_NGS_R.Rmd",
 "text": "Edit"
 },
 "history": {
@@ -264,20 +309,6 @@ gitbook.start({
 });
 </script>
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:")
-      if (/^https?:/.test(src))
-        src = src.replace(/^https?:/, '');
-    script.src = src;
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script>
 </body>
 
 </html>
